@@ -1,14 +1,13 @@
+# Build only the Vite app from /client (avoids npm workspace + root lockfile edge cases on CI)
 [build]
-  # Repo root uses npm workspaces; Vite output lives in client/dist
-  command = "npm install && npm run build"
-  publish = "client/dist"
+  base = "client"
+  command = "npm ci && npm run build"
+  publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"
-  # Install devDependencies (TypeScript, Vite, PWA plugin) — Netlify can skip them when NODE_ENV=production
-  NPM_CONFIG_PRODUCTION = "false"
 
-# React Router: direct loads / refreshes on /favorites, /settings, etc.
+# React Router — refresh / deep link on /favorites, /settings, etc.
 [[redirects]]
   from = "/*"
   to = "/index.html"

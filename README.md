@@ -28,12 +28,12 @@ Output: `client/dist`. Serve over **HTTPS** for installable PWA behavior.
 
 ## Deploy on Netlify
 
-The repo includes **`netlify.toml`**. Connect the Git repo and use defaults — **do not** set the Netlify “Base directory” to `client` (leave it empty so the build runs from the **repository root**).
+The repo includes **`netlify.toml`**. It sets **`base = "client"`** so Netlify installs and builds **only the Vite app** (reliable on CI). You should **not** override “Base directory” in the Netlify UI, or set it to **`client`** to match.
 
-- **Publish directory:** `client/dist` (set automatically by `netlify.toml`)
-- **Build command:** `npm install && npm run build` (also from `netlify.toml`)
+- **Publish directory:** `dist` (relative to `client`, i.e. `client/dist`)
+- **Build command:** `npm ci && npm run build` (inside `client`)
 
-`NPM_CONFIG_PRODUCTION=false` is set so **devDependencies** (Vite, TypeScript, PWA plugin) are installed on Netlify. SPA routes (`/favorites`, `/settings`) are rewritten to `index.html`.
+Vite, TypeScript, and the PWA plugin are normal **dependencies** so `npm ci` always installs them. SPA routes are rewritten to `index.html`.
 
 ## Customize
 
