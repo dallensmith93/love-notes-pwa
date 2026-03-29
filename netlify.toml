@@ -1,4 +1,5 @@
-# Build only the Vite app from /client (avoids npm workspace + root lockfile edge cases on CI)
+# Build only the Vite app from /client (avoids npm workspace + root lockfile edge cases on CI).
+# Deployment: Netlify runs npm ci in /client using client/package-lock.json; publish = client/dist.
 [build]
   base = "client"
   command = "npm ci && npm run build"
