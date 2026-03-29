@@ -1,0 +1,11 @@
+{
+  "name": "love-notes-pwa",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm run dev -w client",
+    "build": "npm run build -w client"
+  },
+  "workspaces": ["client"],
+  "devDependencies": {}
+}
