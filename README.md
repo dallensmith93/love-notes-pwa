@@ -28,12 +28,12 @@ Output: `client/dist`. Serve over **HTTPS** for installable PWA behavior.
 
 ## Deploy on Netlify
 
-The repo includes **`netlify.toml`**. It sets **`base = "client"`** so Netlify installs and builds **only the Vite app** (reliable on CI). You should **not** override “Base directory” in the Netlify UI, or set it to **`client`** to match.
+**`netlify.toml`** runs from the **repo root**:
 
-- **Publish directory:** `dist` (relative to `client`, i.e. `client/dist`)
-- **Build command:** `npm ci && npm run build` (inside `client`)
+- **Command:** `npm ci --prefix client && npm run build --prefix client` (always uses **`client/package-lock.json`**)
+- **Publish:** `client/dist`
 
-Vite, TypeScript, and the PWA plugin are normal **dependencies** so `npm ci` always installs them. SPA routes are rewritten to `index.html`.
+Clear any custom **Build command** / **Publish directory** / **Base directory** in the Netlify UI so the config file wins. Root **`package.json`** includes an **`overrides`** block so hoisted installs never pull the broken `brace-expansion@2.0.3` metadata.
 
 ## Customize
 

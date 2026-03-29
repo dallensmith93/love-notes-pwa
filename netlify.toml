@@ -1,14 +1,11 @@
-# Build only the Vite app from /client (avoids npm workspace + root lockfile edge cases on CI).
-# Deployment: Netlify runs npm ci in /client using client/package-lock.json; publish = client/dist.
+# Install + build from repo root so we always use client/package-lock.json (avoids bad hoisted brace-expansion@2.0.3 in root lock).
 [build]
-  base = "client"
-  command = "npm ci && npm run build"
-  publish = "dist"
+  command = "npm ci --prefix client && npm run build --prefix client"
+  publish = "client/dist"
 
 [build.environment]
   NODE_VERSION = "20"
 
-# React Router — refresh / deep link on /favorites, /settings, etc.
 [[redirects]]
   from = "/*"
   to = "/index.html"

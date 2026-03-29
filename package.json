@@ -5,6 +5,13 @@
   "engines": {
     "node": ">=20"
   },
+  "overrides": {
+    "filelist": {
+      "minimatch": {
+        "brace-expansion": "2.0.2"
+      }
+    }
+  },
   "scripts": {
     "dev": "npm run dev -w client",
     "build": "npm run build -w client"
