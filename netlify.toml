@@ -6,6 +6,13 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Proxy Quotable on same origin (browser CORS blocks many direct api.quotable.io calls from production)
+[[redirects]]
+  from = "/api/quotable/*"
+  to = "https://api.quotable.io/:splat"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

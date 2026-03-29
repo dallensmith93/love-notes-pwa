@@ -16,7 +16,7 @@ npm install
 npm run dev
 ```
 
-Open **http://localhost:5173**. In dev, `/api/quotable` is proxied to avoid CORS issues.
+Open **http://localhost:5173**. **`/api/quotable`** is proxied to Quotable (dev, preview, and **Netlify production**) so the app stays same-origin and avoids browser CORS blocks.
 
 ## Build
 

@@ -6,21 +6,22 @@ import lovePool from "../data/loveQuotes.json";
 import type { LoveNote } from "../types";
 import { normalizeForHash, sha256Hex } from "./textHash";
 
-const DEFAULT_QUOTABLE = "https://api.quotable.io";
-
 type QuotableRandom = {
   _id: string;
   content: string;
   author: string;
 };
 
+/**
+ * Same-origin `/api/quotable` so the browser never hits cross-origin CORS:
+ * - `vite dev` / `vite preview`: proxy in vite.config
+ * - Netlify: rewrite in netlify.toml → https://api.quotable.io
+ */
 function quotableUrl(pathAndQuery: string): string {
   const q = pathAndQuery.startsWith("/") ? pathAndQuery : `/${pathAndQuery}`;
-  if (import.meta.env.DEV) {
-    return `/api/quotable${q}`;
-  }
-  const base = (import.meta.env.VITE_QUOTABLE_BASE || DEFAULT_QUOTABLE).replace(/\/$/, "");
-  return `${base}${q}`;
+  const custom = import.meta.env.VITE_QUOTABLE_BASE?.replace(/\/$/, "");
+  if (custom) return `${custom}${q}`;
+  return `/api/quotable${q}`;
 }
 
 async function toNote(data: QuotableRandom): Promise<LoveNote> {

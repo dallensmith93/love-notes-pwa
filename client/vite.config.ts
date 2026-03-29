@@ -49,4 +49,14 @@ export default defineConfig({
       },
     },
   },
+  preview: {
+    port: 4173,
+    proxy: {
+      "/api/quotable": {
+        target: "https://api.quotable.io",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/quotable/, ""),
+      },
+    },
+  },
 });
