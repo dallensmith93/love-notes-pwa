@@ -26,6 +26,15 @@ npm run build
 
 Output: `client/dist`. Serve over **HTTPS** for installable PWA behavior.
 
+## Deploy on Netlify
+
+The repo includes **`netlify.toml`**. Connect the Git repo and use defaults — **do not** set the Netlify “Base directory” to `client` (leave it empty so the build runs from the **repository root**).
+
+- **Publish directory:** `client/dist` (set automatically by `netlify.toml`)
+- **Build command:** `npm install && npm run build` (also from `netlify.toml`)
+
+`NPM_CONFIG_PRODUCTION=false` is set so **devDependencies** (Vite, TypeScript, PWA plugin) are installed on Netlify. SPA routes (`/favorites`, `/settings`) are rewritten to `index.html`.
+
 ## Customize
 
 - Add or edit quotes in `client/src/data/loveQuotes.json`.
